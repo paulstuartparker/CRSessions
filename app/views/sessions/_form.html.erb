@@ -1,0 +1,61 @@
+<%= simple_form_for @session do |f| %>
+  <div class="form-section">
+    <%= f.input :title, label: 'Session Title', placeholder: 'e.g., Jazz Jam at Red Lion' %>
+    
+    <%= f.input :style, 
+                collection: ['Jazz', 'Blues', 'Rock', 'Folk', 'Open Mic', 'Classical', 'Other'],
+                prompt: 'Select a style' %>
+  </div>
+
+  <div class="form-section">
+    <div class="time-inputs">
+      <%= f.input :start_time, 
+                  as: :datetime,
+                  html5: true,
+                  input_html: { min: Date.today } %>
+      
+      <%= f.input :end_time, 
+                  as: :datetime,
+                  html5: true,
+                  input_html: { min: Date.today } %>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <%= f.association :location,
+                     collection: Location.order(:name),
+                     prompt: 'Select a venue',
+                     label_method: :name %>
+    
+    <%= link_to 'Add New Location', new_location_path, 
+                class: 'button secondary',
+                data: { turbo_frame: "new_location" } %>
+  </div>
+
+  <div class="form-section">
+    <%= f.input :notes, 
+                as: :text,
+                placeholder: 'Additional details about the session...' %>
+  </div>
+
+  <div class="form-section recurrence-section">
+    <%= f.input :recurring, 
+                as: :boolean,
+                input_html: { data: { action: "change->session#toggleRecurrence" } } %>
+
+    <div data-session-target="recurrenceOptions" class="hidden">
+      <%= f.input :recurrence_rule,
+                  collection: Session.recurrence_rules.keys.map { |rule| 
+                    [rule.titleize, rule]
+                  },
+                  include_blank: false %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button primary' %>
+    <%= link_to 'Cancel', sessions_path, class: 'button secondary' %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag "new_location" %> 

@@ -63,3 +63,8 @@ group :test do
 end
 
 gem "pg", "~> 1.5"
+
+gem "simple_form"  # For easier form creation
+gem "ice_cube"     # For handling recurring events
+
+gem "annotaterb"

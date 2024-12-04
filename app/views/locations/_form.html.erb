@@ -1,0 +1,39 @@
+<%= turbo_frame_tag "new_location" do %>
+  <div class="location-form-modal">
+    <div class="modal-header">
+      <h2>Add New Location</h2>
+      <%= link_to "×", "#", 
+          class: "close-button",
+          data: { 
+            action: "click->modal#close",
+            turbo_frame: "_top"
+          } %>
+    </div>
+
+    <%= form_with(model: location, class: "location-form") do |f| %>
+      <div class="form-fields">
+        <%= f.text_field :name, placeholder: "Venue Name", required: true %>
+        <%= f.text_field :address, placeholder: "Street Address", required: true %>
+        
+        <div class="location-grid">
+          <%= f.text_field :city, placeholder: "City", required: true %>
+          <%= f.text_field :state, placeholder: "State", required: true %>
+          <%= f.text_field :zip_code, placeholder: "ZIP Code", required: true %>
+        </div>
+
+        <%= f.text_area :additional_details, 
+            placeholder: "Additional details (parking info, entrance location, etc.)" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit "Create Location", class: "button primary" %>
+        <%= link_to "Cancel", "#", 
+            class: "button secondary",
+            data: { 
+              action: "click->modal#close",
+              turbo_frame: "_top"
+            } %>
+      </div>
+    <% end %>
+  </div>
+<% end %> 

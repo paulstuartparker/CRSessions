@@ -1,0 +1,10 @@
+<div class="location-select-wrapper">
+  <%= f.association :location,
+                   collection: Location.order(:name),
+                   prompt: "Select a venue" %>
+  
+  <%= link_to "Add New Location", 
+              new_location_path,
+              data: { turbo_frame: "new_location" },
+              class: "button secondary" %>
+</div> 

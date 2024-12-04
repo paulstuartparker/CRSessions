@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_220101) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_04_224250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,10 +34,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_220101) do
     t.text "notes"
     t.datetime "start_time", null: false
     t.datetime "end_time", null: false
-    t.string "recurrence_rule"
     t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "recurring"
+    t.integer "recurrence_rule"
     t.index ["location_id"], name: "index_sessions_on_location_id"
     t.index ["start_time"], name: "index_sessions_on_start_time"
     t.index ["style"], name: "index_sessions_on_style"

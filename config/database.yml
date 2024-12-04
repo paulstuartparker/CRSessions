@@ -1,21 +1,22 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  username: postgres
-  password: password
   pool: 5
 
 development:
   <<: *default
+  host: localhost
+  username: crsessions
+  password: password
   database: crsessions_development
 
 test:
   <<: *default
+  host: localhost
+  username: crsessions
+  password: password
   database: crsessions_test
 
-# Store production database in the storage/ directory, which by default
-# is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary:
     <<: *default
