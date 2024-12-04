@@ -1,0 +1,29 @@
+<h1>Jam Sessions in the Capital Region</h1>
+
+<section class="today-sessions">
+  <h2>Today's Sessions</h2>
+  
+  <% @today_sessions.each do |session| %>
+    <article class="session-card">
+      <h3><%= session.title %></h3>
+      <p class="style"><%= session.style %></p>
+      <p class="time">
+        <%= session.start_time.strftime("%I:%M %p") %> - 
+        <%= session.end_time.strftime("%I:%M %p") %>
+      </p>
+      <div class="location">
+        <h4><%= session.location.name %></h4>
+        <p><%= session.location.address %></p>
+        <p><%= session.location.city %>, <%= session.location.state %></p>
+      </div>
+      <%= link_to "More Details", session_path(session) %>
+    </article>
+  <% end %>
+</section>
+
+<section class="upcoming-sessions">
+  <h2>Upcoming Sessions</h2>
+  <!-- Similar structure to today's sessions -->
+</section>
+
+<%= link_to "Add New Session", new_session_path, class: "button" %> 
