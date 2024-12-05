@@ -1,9 +1,10 @@
+<%= turbo_frame_tag "new_location" do %>
 <%= simple_form_for @session do |f| %>
   <div class="form-section">
-    <%= f.input :title, label: 'Session Title', placeholder: 'e.g., Jazz Jam at Red Lion' %>
+    <%= f.input :title, label: 'Session Title', placeholder: 'e.g., Face melting jam session' %>
     
     <%= f.input :style, 
-                collection: ['Jazz', 'Blues', 'Rock', 'Folk', 'Open Mic', 'Classical', 'Other'],
+                collection: ['Electronic', 'Hip-Hop', 'Experimental', 'Neo-Soul', 'R&B', 'Jazz', 'Jam', 'Funk', 'Blues', 'Rock', 'Open', 'Folk', 'Irish', 'Open Mic', 'Classical', 'Comedy', 'Literature', 'Spoken Word', 'Storytelling', 'Poetry', 'Other', 'Killing', 'Burning', 'Lit', 'Lit AF', 'Heavy', 'Profound'],
                 prompt: 'Select a style' %>
   </div>
 
@@ -22,14 +23,24 @@
   </div>
 
   <div class="form-section">
-    <%= f.association :location,
-                     collection: Location.order(:name),
-                     prompt: 'Select a venue',
-                     label_method: :name %>
-    
-    <%= link_to 'Add New Location', new_location_path, 
-                class: 'button secondary',
-                data: { turbo_frame: "new_location" } %>
+    <div class="location-select-wrapper">
+      <%= f.association :location,
+                       collection: Location.order(:name),
+                       prompt: 'Select a venue',
+                       label_method: :display_name %>
+      
+      <div class="location-actions">
+        <span class="location-divider">or</span>
+        <%= link_to new_location_path, 
+                    class: 'button secondary add-location',
+                    data: { turbo_frame: "new_location" } do %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+          </svg>
+          Add New Venue
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="form-section">
@@ -55,7 +66,6 @@
   <div class="form-actions">
     <%= f.button :submit, class: 'button primary' %>
     <%= link_to 'Cancel', sessions_path, class: 'button secondary' %>
-  </div>
-<% end %>
-
-<%= turbo_frame_tag "new_location" %> 
+    </div>
+  <% end %>
+<% end %> 

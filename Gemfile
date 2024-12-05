@@ -68,3 +68,5 @@ gem "simple_form"  # For easier form creation
 gem "ice_cube"     # For handling recurring events
 
 gem "annotaterb"
+
+gem "view_component", "~> 3.20"

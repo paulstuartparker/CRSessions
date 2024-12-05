@@ -1,11 +1,11 @@
 <%= turbo_frame_tag "new_location" do %>
-  <div class="location-form-modal">
+  <div class="location-form-modal" data-controller="location-form modal">
     <div class="modal-header">
-      <h2>Add New Location</h2>
+      <h2>Add New Venue</h2>
       <%= link_to "×", "#", 
           class: "close-button",
           data: { 
-            action: "click->modal#close",
+            action: "modal#close",
             turbo_frame: "_top"
           } %>
     </div>
@@ -13,24 +13,42 @@
     <%= form_with(model: location, class: "location-form") do |f| %>
       <div class="form-fields">
         <%= f.text_field :name, placeholder: "Venue Name", required: true %>
-        <%= f.text_field :address, placeholder: "Street Address", required: true %>
+        
+        <%= f.text_field :address, 
+            placeholder: "Start typing the address...", 
+            required: true,
+            data: { location_form_target: "address" } %>
         
         <div class="location-grid">
-          <%= f.text_field :city, placeholder: "City", required: true %>
-          <%= f.text_field :state, placeholder: "State", required: true %>
-          <%= f.text_field :zip_code, placeholder: "ZIP Code", required: true %>
+          <%= f.text_field :city, 
+              placeholder: "City", 
+              required: true,
+              data: { location_form_target: "city" } %>
+              
+          <%= f.text_field :state, 
+              placeholder: "State", 
+              required: true,
+              data: { location_form_target: "state" } %>
+              
+          <%= f.text_field :zip_code, 
+              placeholder: "ZIP Code", 
+              required: true,
+              data: { location_form_target: "zipCode" } %>
         </div>
+
+        <%= f.hidden_field :latitude, data: { location_form_target: "latitude" } %>
+        <%= f.hidden_field :longitude, data: { location_form_target: "longitude" } %>
 
         <%= f.text_area :additional_details, 
             placeholder: "Additional details (parking info, entrance location, etc.)" %>
       </div>
 
       <div class="form-actions">
-        <%= f.submit "Create Location", class: "button primary" %>
+        <%= f.submit "Create Venue", class: "button primary" %>
         <%= link_to "Cancel", "#", 
             class: "button secondary",
             data: { 
-              action: "click->modal#close",
+              action: "modal#close",
               turbo_frame: "_top"
             } %>
       </div>
