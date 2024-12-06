@@ -10,9 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_04_224250) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_06_215641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "creative_sessions", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "style", null: false
+    t.text "notes"
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "recurring"
+    t.integer "recurrence_rule"
+    t.index ["location_id"], name: "index_creative_sessions_on_location_id"
+    t.index ["start_time"], name: "index_creative_sessions_on_start_time"
+    t.index ["style"], name: "index_creative_sessions_on_style"
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string "name", null: false
@@ -28,21 +70,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_04_224250) do
     t.index ["latitude", "longitude"], name: "index_locations_on_latitude_and_longitude"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "style", null: false
-    t.text "notes"
-    t.datetime "start_time", null: false
-    t.datetime "end_time", null: false
-    t.bigint "location_id", null: false
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "recurring"
-    t.integer "recurrence_rule"
-    t.index ["location_id"], name: "index_sessions_on_location_id"
-    t.index ["start_time"], name: "index_sessions_on_start_time"
-    t.index ["style"], name: "index_sessions_on_style"
+    t.string "role"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "sessions", "locations"
+  add_foreign_key "creative_sessions", "locations"
 end

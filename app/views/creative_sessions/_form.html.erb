@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "new_location" do %>
-<%= simple_form_for @session do |f| %>
+<%= simple_form_for @creative_session do |f| %>
   <div class="form-section">
     <%= f.input :title, label: 'Session Title', placeholder: 'e.g., Face melting jam session' %>
     
@@ -11,37 +11,45 @@
   <div class="form-section">
     <div class="time-inputs">
       <%= f.input :start_time, 
-                  as: :datetime,
                   html5: true,
-                  input_html: { min: Date.today } %>
+                  input_html: { 
+                    type: 'datetime-local',
+                    min: Date.today 
+                  } %>
       
       <%= f.input :end_time, 
-                  as: :datetime,
                   html5: true,
-                  input_html: { min: Date.today } %>
+                  input_html: { 
+                    type: 'datetime-local',
+                    min: Date.today 
+                  } %>
     </div>
   </div>
 
-  <div class="form-section">
-    <div class="location-select-wrapper">
-      <%= f.association :location,
-                       collection: Location.order(:name),
-                       prompt: 'Select a venue',
-                       label_method: :display_name %>
-      
-      <div class="location-actions">
-        <span class="location-divider">or</span>
-        <%= link_to new_location_path, 
-                    class: 'button secondary add-location',
-                    data: { turbo_frame: "new_location" } do %>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
-            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-          </svg>
-          Add New Venue
-        <% end %>
+  <% unless current_user.location_user? %>
+    <div class="form-section">
+      <div class="location-select-wrapper">
+        <%= f.association :location,
+                         collection: Location.order(:name),
+                         prompt: 'Select a venue',
+                         label_method: :display_name %>
+        
+        <div class="location-actions">
+          <span class="location-divider">or</span>
+          <%= link_to new_location_path, 
+                      class: 'button secondary add-location',
+                      data: { turbo_frame: "new_location" } do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+              <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+            </svg>
+            Add New Venue
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% else %>
+    <%= f.hidden_field :location_id, value: current_user.location_id %>
+  <% end %>
 
   <div class="form-section">
     <%= f.input :notes, 
@@ -56,7 +64,7 @@
 
     <div data-session-target="recurrenceOptions" class="hidden">
       <%= f.input :recurrence_rule,
-                  collection: Session.recurrence_rules.keys.map { |rule| 
+                  collection: CreativeSession.recurrence_rules.keys.map { |rule| 
                     [rule.titleize, rule]
                   },
                   include_blank: false %>
@@ -65,7 +73,7 @@
 
   <div class="form-actions">
     <%= f.button :submit, class: 'button primary' %>
-    <%= link_to 'Cancel', sessions_path, class: 'button secondary' %>
+    <%= link_to 'Cancel', creative_sessions_path, class: 'button secondary' %>
     </div>
   <% end %>
 <% end %> 
