@@ -16,11 +16,11 @@ class LocationsController < ApplicationController
       if turbo_frame_request?
         render partial: "sessions/location_select",
                locals: { f: SimpleForm::FormBuilder.new("session",
-                                                       Session.new,
+                                                       CreativeSession.new,
                                                        view_context,
                                                        {}) }
       else
-        redirect_to locations_path, notice: "Location created successfully"
+        redirect_to creative_sessions_path, notice: "Location created successfully"
       end
     else
       render :new, status: :unprocessable_entity
