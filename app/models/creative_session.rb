@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: sessions
+# Table name: creative_sessions
 #
 #  id              :bigint           not null, primary key
 #  end_time        :datetime         not null
@@ -16,15 +16,15 @@
 #
 # Indexes
 #
-#  index_sessions_on_location_id  (location_id)
-#  index_sessions_on_start_time   (start_time)
-#  index_sessions_on_style        (style)
+#  index_creative_sessions_on_location_id  (location_id)
+#  index_creative_sessions_on_start_time   (start_time)
+#  index_creative_sessions_on_style        (style)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (location_id => locations.id)
 #
-class Session < ApplicationRecord
+class CreativeSession < ApplicationRecord
   belongs_to :location
 
   enum :recurrence_rule, {
@@ -42,4 +42,4 @@ class Session < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :location, presence: true
-end
+end 

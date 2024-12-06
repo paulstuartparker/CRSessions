@@ -5,7 +5,7 @@
     <h2>Today's Sessions</h2>
     <div class="sessions-grid">
       <% @today_sessions.each do |session| %>
-        <%= render SessionCardComponent.new(session: session) %>
+        <%= render CreativeSessionCardComponent.new(creative_session: session) %>
       <% end %>
     </div>
   </section>
@@ -14,10 +14,12 @@
     <h2>Upcoming Sessions</h2>
     <div class="sessions-grid">
       <% @upcoming_sessions.each do |session| %>
-        <%= render SessionCardComponent.new(session: session) %>
+        <%= render CreativeSessionCardComponent.new(creative_session: session) %>
       <% end %>
     </div>
   </section>
 
-  <%= link_to "Add New Session", new_session_path, class: "button primary" %>
+  <% if user_signed_in? %>
+    <%= link_to "Add New Session", new_creative_session_path, class: "button primary" %>
+  <% end %>
 </div> 

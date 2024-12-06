@@ -20,6 +20,7 @@
 #
 class Location < ApplicationRecord
   has_many :sessions
+  has_many :users
 
   validates :name, presence: true
   validates :address, presence: true

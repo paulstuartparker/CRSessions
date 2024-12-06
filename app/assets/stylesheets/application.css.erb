@@ -1,0 +1,10 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ */
+
+/* Import base styles */
+<%= File.read(Rails.root.join('app/assets/stylesheets/base.css')).html_safe %>
+
+/* Import component styles */
+<%= File.read(Rails.root.join('app/assets/stylesheets/creative_sessions.css')).html_safe %>
+<%= File.read(Rails.root.join('app/assets/stylesheets/locations.css')).html_safe %>

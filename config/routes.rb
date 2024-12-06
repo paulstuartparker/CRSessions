@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  root "sessions#index"
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  devise_for :users
+  root "creative_sessions#index"
 
-  resources :sessions
+  resources :creative_sessions
   resources :locations
 end

@@ -18,12 +18,33 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "active_admin", "data-turbo-track": "reload" if controller_path =~ /admin\// %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.dig(:google_maps, :api_key)}&libraries=places", defer: true %>
   </head>
 
   <body>
+    <% if notice %>
+      <p class="alert notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <p>
+        Logged in as <%= current_user.email %> |
+        <%= link_to 'Edit Profile', edit_user_registration_path %> |
+        <%= button_to 'Logout', 
+                      destroy_user_session_path, 
+                      method: :delete,
+                      class: 'button secondary' %>
+      </p>
+    <% else %>
+      <%= link_to 'Login', new_user_session_path %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
