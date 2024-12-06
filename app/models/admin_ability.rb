@@ -8,4 +8,4 @@ class AdminAbility
     can :manage, :all
     can :read, ActiveAdmin::Page
   end
-end 
+end

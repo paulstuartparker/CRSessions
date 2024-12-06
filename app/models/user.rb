@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   belongs_to :location, optional: true
 
-  enum :role, { admin: 'admin', location_user: 'location_user' }
+  enum :role, { admin: "admin", location_user: "location_user" }
 
   after_initialize :set_default_role, if: :new_record?
 
@@ -38,8 +38,8 @@ class User < ApplicationRecord
   private
 
   def location_user_has_location
-    if role == 'location_user' && location.blank?
-      errors.add(:location, 'Location is required for location_user role')
+    if role == "location_user" && location.blank?
+      errors.add(:location, "Location is required for location_user role")
     end
   end
 end
