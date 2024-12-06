@@ -75,10 +75,10 @@ gem "ice_cube"     # For handling recurring events
 
 gem "view_component", "~> 3.20"
 
-gem 'devise'
+gem "devise"
 
-gem 'activeadmin'
+gem "activeadmin"
 
-gem 'cancancan'
+gem "cancancan"
 
 gem "sassc-rails"

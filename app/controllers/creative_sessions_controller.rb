@@ -1,7 +1,7 @@
 class CreativeSessionsController < ApplicationController
-  before_action :set_creative_session, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :set_creative_session, only: [ :show, :edit, :update, :destroy ]
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
   def index
     @today_sessions = CreativeSession.happening_today.includes(:location)
@@ -79,4 +79,4 @@ class CreativeSessionsController < ApplicationController
       @creative_session.location_id = current_user.location_id
     end
   end
-end 
+end

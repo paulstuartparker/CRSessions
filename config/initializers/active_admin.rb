@@ -5,13 +5,13 @@ ActiveAdmin.setup do |config|
   config.logout_link_path = :destroy_user_session_path
   config.logout_link_method = :delete
   config.batch_actions = true
-  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+  config.filter_attributes = [ :encrypted_password, :password, :password_confirmation ]
   config.localize_format = :long
 
   config.use_webpacker = false
 
-  config.register_stylesheet 'active_admin.css'
-  config.register_javascript 'active_admin.js'
+  config.register_stylesheet "active_admin.css"
+  config.register_javascript "active_admin.js"
 
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
   config.cancan_ability_class = "AdminAbility"
