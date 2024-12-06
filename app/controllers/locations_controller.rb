@@ -1,7 +1,7 @@
 class LocationsController < ApplicationController
   def new
     @location = Location.new
-    
+
     if turbo_frame_request?
       render partial: "form", locals: { location: @location }
     else
@@ -11,13 +11,13 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-    
+
     if @location.save
       if turbo_frame_request?
-        render partial: "sessions/location_select", 
-               locals: { f: SimpleForm::FormBuilder.new("session", 
-                                                       Session.new, 
-                                                       view_context, 
+        render partial: "sessions/location_select",
+               locals: { f: SimpleForm::FormBuilder.new("session",
+                                                       Session.new,
+                                                       view_context,
                                                        {}) }
       else
         redirect_to locations_path, notice: "Location created successfully"
@@ -41,4 +41,4 @@ class LocationsController < ApplicationController
       :additional_details
     )
   end
-end 
+end

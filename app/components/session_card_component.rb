@@ -5,4 +5,4 @@ class SessionCardComponent < ViewComponent::Base
 
   private
   attr_reader :session
-end 
+end

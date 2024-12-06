@@ -49,6 +49,12 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+
+  gem "rubocop", "~> 1.69"
+
+
+  gem "annotaterb"
 end
 
 group :development do
@@ -66,7 +72,5 @@ gem "pg", "~> 1.5"
 
 gem "simple_form"  # For easier form creation
 gem "ice_cube"     # For handling recurring events
-
-gem "annotaterb"
 
 gem "view_component", "~> 3.20"

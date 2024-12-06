@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: [:edit, :update, :destroy]
+  before_action :set_session, only: [ :edit, :update, :destroy ]
 
   def index
     @today_sessions = Session.happening_today.includes(:location)
@@ -16,9 +16,9 @@ class SessionsController < ApplicationController
 
   def create
     @session = Session.new(session_params)
-    
+
     if @session.save
-      redirect_to sessions_path, notice: 'Session was successfully created.'
+      redirect_to sessions_path, notice: "Session was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
 
   def update
     if @session.update(session_params)
-      redirect_to sessions_path, notice: 'Session was successfully updated.'
+      redirect_to sessions_path, notice: "Session was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
 
   def destroy
     @session.destroy
-    redirect_to sessions_path, notice: 'Session was successfully deleted.'
+    redirect_to sessions_path, notice: "Session was successfully deleted."
   end
 
   private
@@ -58,4 +58,4 @@ class SessionsController < ApplicationController
       :recurrence_rule
     )
   end
-end 
+end

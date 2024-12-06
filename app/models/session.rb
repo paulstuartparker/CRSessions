@@ -35,11 +35,11 @@ class Session < ApplicationRecord
   }
 
   scope :happening_today, -> { where(start_time: Time.current.all_day) }
-  scope :upcoming, -> { where('start_time > ?', Time.current).order(start_time: :asc) }
+  scope :upcoming, -> { where("start_time > ?", Time.current).order(start_time: :asc) }
 
   validates :title, presence: true
   validates :style, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :location, presence: true
-end 
+end

@@ -34,4 +34,4 @@ class Location < ApplicationRecord
   def display_name
     "#{name} (#{city}, #{state})"
   end
-end 
+end
