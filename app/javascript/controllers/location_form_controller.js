@@ -49,7 +49,7 @@ export default class extends Controller {
       }
     }
 
-    this.addressTarget.value = street_number + " " + route
+    this.addressTarget.value = `${street_number} ${route}`
     
     if (place.geometry?.location) {
       this.latitudeTarget.value = place.geometry.location.lat()

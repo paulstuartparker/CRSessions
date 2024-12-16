@@ -1,4 +1,3 @@
-
 services:
   db:
     image: postgres:13
@@ -10,6 +9,13 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - crsessions_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   web:
     build: .
@@ -19,7 +25,17 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    networks:
+      - crsessions_network
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgresql://postgres:password@db:5432/crsessions_development
 
 volumes:
   db-data:
+
+networks:
+  crsessions_network:
+    driver: bridge

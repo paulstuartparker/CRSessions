@@ -1,6 +1,6 @@
 <h2>Sign up</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { controller: "location-form" } }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -15,6 +15,28 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+
+    <%= f.simple_fields_for :location do |location_fields| %>
+      <%= location_fields.input :name, required: true, placeholder: "Venue Name" %>
+      <%= location_fields.input :address,
+                                required: true,
+                                placeholder: "Start typing the address...",
+                                input_html: { data: { location_form_target: "address" } } %>
+      <%= location_fields.input :city,
+                                required: true,
+                                input_html: { data: { location_form_target: "city" } } %>
+      <%= location_fields.input :state,
+                                required: true,
+                                input_html: { data: { location_form_target: "state" } } %>
+      <%= location_fields.input :zip_code,
+                                required: true,
+                                input_html: { data: { location_form_target: "zipCode" } } %>
+      <%= location_fields.hidden_field :latitude, data: { location_form_target: "latitude" } %>
+      <%= location_fields.hidden_field :longitude, data: { location_form_target: "longitude" } %>
+      <%= location_fields.input :additional_details,
+                                as: :text,
+                                placeholder: "Additional details (parking info, entrance location, etc.)" %>
+    <% end %>
   </div>
 
   <div class="form-actions">

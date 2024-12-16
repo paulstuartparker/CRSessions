@@ -1,32 +1,19 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: db
+  username: postgres
+  password: password
 
 development:
   <<: *default
-  host: localhost
-  username: crsessions
-  password: password
   database: crsessions_development
 
 test:
   <<: *default
-  host: localhost
-  username: crsessions
-  password: password
   database: crsessions_test
 
 production:
-  primary:
-    <<: *default
-  cache:
-    <<: *default
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *default
-    database: crsessions_production
-  cable:
-    <<: *default
-    database: crsessions_production
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: crsessions_production

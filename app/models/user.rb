@@ -11,11 +11,17 @@
 #  role                   :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  location_id            :bigint
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_location_id           (location_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (location_id => locations.id)
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -30,6 +36,8 @@ class User < ApplicationRecord
   after_initialize :set_default_role, if: :new_record?
 
   validate :location_user_has_location
+
+  accepts_nested_attributes_for :location
 
   def set_default_role
     self.role ||= :location_user
