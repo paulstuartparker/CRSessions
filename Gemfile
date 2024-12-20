@@ -73,7 +73,7 @@ gem "pg", "~> 1.5"
 gem "simple_form"  # For easier form creation
 gem "ice_cube"     # For handling recurring events
 
-gem "view_component", "~> 3.20"
+gem "view_component", "~> 3.21"
 
 gem "devise"
 
